@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { getAll } from '../statemanagement/actions/ProductAction';
+import { getAll, remove } from '../statemanagement/actions/ProductAction';
 const ProductLists = () => {
   return (
     <div>
@@ -20,6 +20,9 @@ const ProductLists = () => {
                         <td>{item.id}</td>
                         <td>{item.productName}</td>
                         <td>{item.price}</td>
+                        <td>
+                            <button onClick={() =>this.props.removeproduct(item.id)}>Delete</button>
+                        </td>
                     </tr>
                 )
             }
@@ -29,6 +32,11 @@ const ProductLists = () => {
   )
 }
 
+const mapDispatchToProps= dispatch => {
+    return{
+        removeproduct: (id) => dispatch(remove(id)),
+    }
+}
 
 function mapSateToProps(state){
     return{
@@ -37,4 +45,4 @@ function mapSateToProps(state){
 }
 
 
-export default connect(mapSateToProps)(ProductLists);
+export default connect(mapSateToProps,mapDispatchToProps)(ProductLists);
